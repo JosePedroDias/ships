@@ -3,20 +3,21 @@ html, body {
 }
 
 body {
+	font-family: sans-serif;
 	padding: 0;
 	margin: 0;
 	overflow: hidden;
-	font-family: sans-serif;
-	/*-webkit-user-select: none;
-	-moz-user-select: none;*/
-	background-color: #FF00FF;
+	background-color: #AA44AA;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
 }
 
 span {
 	position: absolute;
+	pointer-events: none;
 	top: 10px;
 }
 
-span.s1 { left: 10px; }
-
-span.s2 { right: 10px; }
+#s1 { left:  10px; }
+#s2 { right: 10px; }

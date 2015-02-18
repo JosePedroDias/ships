@@ -8,6 +8,8 @@
 
 	var label = 'view_' + ~~( Math.random() * 10000 );
 
+	var isViewDirty = true;
+
 
 
 	// http://www.goodboydigital.com/pixijs/docs/
@@ -55,6 +57,8 @@
 
 		stage.addChild(s);
 
+		isViewDirty = true;
+
 		return s;
 	};
 
@@ -67,6 +71,7 @@
 	peer.on('open', function(id) {
 		log('my id (view id) is: ' + peer.id);
 		document.title = peer.id;
+		location.hash = peer.id;
 	});
 
 	peer.on('error', function(err) {
@@ -80,12 +85,13 @@
 		dataConn.on('error', function(err) { log('error ' + err); });
 
 		dataConn.on('open', function() {
-			log('+' + dataConn.peer + ' (' + dataConn.label + ')')
+			log('+' + dataConn.peer + ' (' + dataConn.label + ')');
 		});
 
 		dataConn.on('close', function() {
-			log('-' + dataConn.peer + ' (' + dataConn.label + ')')
+			log('-' + dataConn.peer + ' (' + dataConn.label + ')');
 			stage.removeChild(O.sprite);
+			isViewDirty = true;
 			delete PLAYERS[dataConn.peer];
 		});
 		
@@ -114,14 +120,20 @@
 			c = player.controls;
 			if (c[0] !== 0) {
 				s.rotation += c[0] * dt * R360 / 2;
+				isViewDirty = true;
 			}
 			if (c[1] !== 0) {
 				s.position.y += c[1] * dt * 100;
+				isViewDirty = true;
 			}
 		}
 
 		// render the stage
-		renderer.render(stage);
+		if (isViewDirty) {
+			console.log('rendered ' + t.toFixed(3));
+			renderer.render(stage);
+			isViewDirty = false;
+		}
 	}
 
 })();
