@@ -13,6 +13,7 @@
 	var fetchController;
 
 	var hasTouch = ('ontouchstart' in document.documentElement);
+	log('hasTouch? ' + (hasTouch ? 'Y' : 'N'));
 
 
 
@@ -65,7 +66,7 @@
 
 			var inLeftPart = function(ev) {
 				ev = (ev.changedTouches && ev.changedTouches[0]) ? ev.changedTouches[0] : ev;
-				return ev[0].pageX < dims[0]/2;
+				return ev.pageX < dims[0]/2;
 			};
 
 			var j1 = new window.VirtualJoystick({
@@ -133,7 +134,7 @@
 	});
 
 	peer.on('error', function(err) {
-		log('error ' + err);
+		window.alert('error ' + err);
 	});
 
 	
@@ -150,7 +151,7 @@
 		remoteId = localStorage.getItem('remoteId') || '';
 		remoteId = prompt('view id?', remoteId);
 	}
-	
+
 	if (remoteId) {
 		localStorage.setItem('remoteId', remoteId);
 		var dataConn = peer.connect(remoteId, {label:label});
