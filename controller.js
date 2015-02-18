@@ -74,7 +74,7 @@
 				mouseSupport:     supportMouse,
 				limitStickTravel: true,
 				stickRadius:      radius,
-				strokeStyle:      'green'
+				strokeStyle:      '#FFFFFF'
 			});
 			j1.addEventListener('touchStartValidation', inLeftPart);
 
@@ -83,7 +83,7 @@
 				mouseSupport:     supportMouse,
 				limitStickTravel: true,
 				stickRadius:      0,
-				strokeStyle:      'blue'
+				strokeStyle:      'FFFF00'
 			});
 			j2.addEventListener('touchStartValidation', function(ev) { return !inLeftPart(ev); });
 
