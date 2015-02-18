@@ -143,8 +143,14 @@
 	if (!label) { label = 'player_' + ~~( Math.random() * 10000 ); }
 	localStorage.setItem('label', label);
 
-	var remoteId = localStorage.getItem('remoteId') || '';
-	remoteId = prompt('view id?', remoteId);
+	var remoteId = location.hash;
+	if (remoteId) {
+		remoteId = remoteId.substring(1); }
+	else {
+		remoteId = localStorage.getItem('remoteId') || '';
+		remoteId = prompt('view id?', remoteId);
+	}
+	
 	if (remoteId) {
 		localStorage.setItem('remoteId', remoteId);
 		var dataConn = peer.connect(remoteId, {label:label});

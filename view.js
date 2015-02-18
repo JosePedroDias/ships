@@ -69,8 +69,7 @@
 	var peer = new Peer({key:PEER_KEY});
 
 	peer.on('open', function(id) {
-		log('my id (view id) is: ' + peer.id);
-		document.title = peer.id;
+		// log('my id (view id) is: ' + peer.id);
 		location.hash = peer.id;
 	});
 
