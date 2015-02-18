@@ -66,6 +66,7 @@
 
 	peer.on('open', function(id) {
 		log('my id (view id) is: ' + peer.id);
+		document.title = peer.id;
 	});
 
 	peer.on('error', function(err) {
@@ -79,11 +80,11 @@
 		dataConn.on('error', function(err) { log('error ' + err); });
 
 		dataConn.on('open', function() {
-			log('+' + dataConn.peer + '(' + dataConn.label + ')')
+			log('+' + dataConn.peer + ' (' + dataConn.label + ')')
 		});
 
 		dataConn.on('close', function() {
-			log('-' + dataConn.peer + '(' + dataConn.label + ')')
+			log('-' + dataConn.peer + ' (' + dataConn.label + ')')
 			stage.removeChild(O.sprite);
 			delete PLAYERS[dataConn.peer];
 		});
