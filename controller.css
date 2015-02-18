@@ -1,0 +1,22 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	font-family: sans-serif;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	background-color: #FF00FF;
+}
+
+span {
+	position: absolute;
+	top: 10px;
+}
+
+span.s1 { left: 10px; }
+
+span.s2 { right: 10px; }
