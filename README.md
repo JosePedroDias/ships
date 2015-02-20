@@ -30,6 +30,5 @@ Make sure you enter the same key in the controller page to play in that game ins
 
 ## current state
 
-Notice that the game itself is currently just a stub -  
-directions map to ship Y axis and rotation.  
+Notice that the game itself is currently just a stub.
 Will do something more interesting soon, hopefully.

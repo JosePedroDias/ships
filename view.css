@@ -7,7 +7,24 @@ body {
     margin: 0;
     overflow: hidden;
     font-family: sans-serif;
-    -webkit-user-select: none;
-    -moz-user-select: none;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
     background-color: #000;
+}
+
+#qr-code {
+	z-index: 1;
+	position: absolute;
+	left: 50%;
+	top:  50%;
+	margin-left: -256px;
+	margin-top:  -256px;
+	background-color: #FFF;
+	color: #000;
+	text-align: center;
+}
+
+.hidden {
+	display: none;
 }

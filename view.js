@@ -62,15 +62,31 @@
 		return s;
 	};
 
+
+	var randomBaseNString = function(base, numChars) {
+		return ( ~~( Math.random() * Math.pow(base, numChars) ) ).toString(base);
+	};
+
 	
 
-
-
-	var peer = new Peer({key:PEER_KEY});
+	// http://peerjs.com/docs/#api
+	var id = location.hash ? location.hash.substring(1) : randomBaseNString(32, 4);
+	var peer = new Peer('sh_'+id, {key:PEER_KEY});
 
 	peer.on('open', function(id) {
-		// log('my id (view id) is: ' + peer.id);
-		location.hash = peer.id;
+		location.hash = peer.id.substring(3);
+		var qrCodeWrapperEl = document.createElement('div');
+		qrCodeWrapperEl.id = 'qr-code';
+
+		var imgEl = document.createElement('img');
+		imgEl.src = 'http://chart.googleapis.com/chart?chs=512x512&cht=qr&chld=H|0&chl=' + encodeURIComponent( location.href.replace('view', 'controller') );
+		qrCodeWrapperEl.appendChild(imgEl);
+
+		var labelEl = document.createElement('div');
+		labelEl.appendChild( document.createTextNode('press space bar to toggle QR code display') );
+		qrCodeWrapperEl.appendChild(labelEl);
+		
+		document.body.appendChild(qrCodeWrapperEl);
 	});
 
 	peer.on('error', function(err) {
@@ -112,27 +128,51 @@
 		t0 = t;
 		//log(t, dt);
 
+		var rotSpeed = R360 / 2; // rads/s
+		var linSpeed = 200;      // px/s
+
 		var player, s, c;
 		for (var peerId in PLAYERS) {
 			player = PLAYERS[peerId];
 			s = player.sprite;
 			c = player.controls;
 			if (c[0] !== 0) {
-				s.rotation += c[0] * dt * R360 / 2;
+				s.rotation += c[0] * dt * rotSpeed;
 				isViewDirty = true;
 			}
 			if (c[1] !== 0) {
-				s.position.y += c[1] * dt * 100;
+				s.position.x -= c[1] * linSpeed * dt * Math.sin(s.rotation);
+				s.position.y += c[1] * linSpeed * dt * Math.cos(s.rotation);
 				isViewDirty = true;
 			}
 		}
 
 		// render the stage
 		if (isViewDirty) {
-			console.log('rendered ' + t.toFixed(3));
+			//log('rendered ' + t.toFixed(3));
 			renderer.render(stage);
 			isViewDirty = false;
 		}
 	}
+
+
+
+	var toggleQrCodeDisplay = function() {
+		var qrEl = document.querySelector('#qr-code');
+		if (qrEl) {
+			qrEl.classList.toggle('hidden');
+		}
+	};
+
+	window.addEventListener('keyup', function(ev) {
+		if (ev.keyCode === 32) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			toggleQrCodeDisplay();
+		}
+	});
+
+	window.addEventListener('mouseup',  toggleQrCodeDisplay);
+	window.addEventListener('touchend', toggleQrCodeDisplay);
 
 })();

@@ -154,7 +154,7 @@
 
 	if (remoteId) {
 		localStorage.setItem('remoteId', remoteId);
-		var dataConn = peer.connect(remoteId, {label:label});
+		var dataConn = peer.connect('sh_' + remoteId, {label:label});
 
 		send = function(data) {
 			dataConn.send(data);
