@@ -102,7 +102,7 @@
 	}
 	else {
 		(function() {
-			var k = keys();
+			var k = keys;
 
 			var k_up    = k.keyCodes.up;
 			var k_down  = k.keyCodes.down;
